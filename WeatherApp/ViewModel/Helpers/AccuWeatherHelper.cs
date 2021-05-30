@@ -9,17 +9,8 @@ using WeatherApp.Model;
 
 namespace WeatherApp.ViewModel.Helpers
 {
-    // Service Class : Contain Business logic.
-    // Helper Class : this class is one type of reusable component.
     public static class AccuWeatherHelper
     {
-        // Location
-        // http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=gvUG6aGmoQLHPVEtgOnutJUphIZFixh3&q=San%20Francisco
-
-        // Current Conditions
-        // http://dataservice.accuweather.com/currentconditions/v1/347629?apikey=gvUG6aGmoQLHPVEtgOnutJUphIZFixh3
-
-
         private const string _baseUrl = "http://dataservice.accuweather.com/";
         private const string _apiKey = "gvUG6aGmoQLHPVEtgOnutJUphIZFixh3";
         private const string _getCurrentConditionsEndPoint = "currentconditions/v1/{0}?apikey={1}";
