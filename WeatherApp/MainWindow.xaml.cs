@@ -22,7 +22,7 @@ namespace WeatherApp
     {
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }
