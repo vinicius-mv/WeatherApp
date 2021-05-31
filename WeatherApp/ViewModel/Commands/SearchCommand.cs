@@ -26,7 +26,7 @@ namespace WeatherApp.ViewModel.Commands
         {
             string query = parameter as string;
 
-            if(string.IsNullOrEmpty(query)) { return false; }
+            if(string.IsNullOrWhiteSpace(query)) { return false; }
 
             return true;
         }
