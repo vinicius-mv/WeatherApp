@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModel\WeatherVM.cs" />
     <Compile Include="View\WeatherWindow.xaml.cs">
       <DependentUpon>WeatherWindow.xaml</DependentUpon>
     </Compile>
@@ -70,7 +71,7 @@
   <ItemGroup>
     <Compile Include="Model\Area.cs" />
     <Compile Include="Model\City.cs" />
-    <Compile Include="Model\CurrentCondition.cs" />
+    <Compile Include="Model\CurrentConditions.cs" />
     <Compile Include="Model\Temperature.cs" />
     <Compile Include="Model\Units.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

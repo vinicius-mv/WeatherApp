@@ -30,16 +30,16 @@ namespace WeatherApp.ViewModel.Helpers
             return cities;
         }
 
-        public static async Task<CurrentCondition> GetCurrentConditionAsync(string cityKey)
+        public static async Task<CurrentConditions> GetCurrentConditionAsync(string cityKey)
         {
             string url = _baseUrl + string.Format(_getCurrentConditionsEndPoint, cityKey, _apiKey);
 
-            List<CurrentCondition> currentConditions;
+            List<CurrentConditions> currentConditions;
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(url);
                 string json = await response.Content.ReadAsStringAsync();
-                currentConditions = JsonConvert.DeserializeObject<List<CurrentCondition>>(json);
+                currentConditions = JsonConvert.DeserializeObject<List<CurrentConditions>>(json);
             }
             return currentConditions.FirstOrDefault();
         }

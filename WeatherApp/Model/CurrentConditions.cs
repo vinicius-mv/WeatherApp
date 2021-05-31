@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherApp.Model
 {
-    public class CurrentCondition
+    public class CurrentConditions
     {
         public DateTime LocalObservationDateTime { get; set; }
 
