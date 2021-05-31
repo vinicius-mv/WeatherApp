@@ -46,7 +46,7 @@
             <!--Grid2 Column 0-->
             <StackPanel Margin="0 10">
                 <TextBlock DataContext="{StaticResource vm}"
-                           Text="{Binding SelectedCIty.LocalizedName}" 
+                           Text="{Binding SelectedCity.LocalizedName}" 
                            Foreground="#f4f4f8"
                            FontSize="20"
                            Margin="20 0"/>
@@ -60,7 +60,7 @@
             <!--Grid2 Column 1-->
             <TextBlock Grid.Column="1"
                        VerticalAlignment="Center"
-                       Text="{Binding Temperature.Metric, StringFormat={}{0}°C}" 
+                       Text="{Binding Temperature.Metric.Value, StringFormat={}{0}°C}" 
                        Foreground="#f4f4f8"
                        FontSize="30"
                        Margin="20 0"/>

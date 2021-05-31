@@ -6,12 +6,18 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherApp.Model;
+using WeatherApp.ViewModel.Helpers;
 
 namespace WeatherApp.ViewModel
 {
     public class WeatherVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public WeatherVM()
+        {
+            LoadDataInDesignerMode();
+        }
 
         private string _cityQuery;
 
@@ -49,9 +55,37 @@ namespace WeatherApp.ViewModel
             }
         }
 
+        public async Task MakeQuery()
+        {
+            var cities = await AccuWeatherHelper.GetCitiesAsync(CityQuery);
+        }
+
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void LoadDataInDesignerMode()
+        {
+            if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+            {
+                SelectedCity = new City()
+                {
+                    LocalizedName = "New York"
+                };
+
+                CurrentConditions = new CurrentConditions
+                {
+                    WeatherText = "Partly Cloud",
+                    Temperature = new Temperature
+                    {
+                        Metric = new Units
+                        {
+                            Value = 21,
+                        }
+                    }
+                };
+            }
         }
     }
 }
