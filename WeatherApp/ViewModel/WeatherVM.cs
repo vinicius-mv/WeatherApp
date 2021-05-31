@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherApp.Model;
+using WeatherApp.ViewModel.Commands;
 using WeatherApp.ViewModel.Helpers;
 
 namespace WeatherApp.ViewModel
@@ -14,9 +15,12 @@ namespace WeatherApp.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public SearchCommand SearchCommand { get; }
+
         public WeatherVM()
         {
-            LoadDataInDesignerMode();
+            SearchCommand = new SearchCommand(this);
+            this.LoadDataInDesignerMode();
         }
 
         private string _cityQuery;

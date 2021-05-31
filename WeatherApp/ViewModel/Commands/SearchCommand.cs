@@ -25,7 +25,7 @@ namespace WeatherApp.ViewModel.Commands
 
         public async void Execute(object parameter)
         {
-            await this.WeatherVM.MakeQuery();
+            await WeatherVM.MakeQuery();
         }
     }
 }
