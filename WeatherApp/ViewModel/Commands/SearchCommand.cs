@@ -14,12 +14,20 @@ namespace WeatherApp.ViewModel.Commands
             this.WeatherVM = weatherVM;
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         public WeatherVM WeatherVM { get; set; }
 
         public bool CanExecute(object parameter)
         {
+            string query = parameter as string;
+
+            if(string.IsNullOrEmpty(query)) { return false; }
+
             return true;
         }
 
