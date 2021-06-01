@@ -59,7 +59,7 @@ namespace WeatherApp.ViewModel
             get { return _selectedCity; }
             set
             {
-                if(value == null) { return; } 
+                if (value == null) { return; }
 
                 _selectedCity = value;
                 OnPropertyChanged();
@@ -71,7 +71,7 @@ namespace WeatherApp.ViewModel
         {
             CityQuery = string.Empty;
 
-            if(SelectedCity == null) { return; }
+            if (SelectedCity == null) { return; }
 
             CurrentConditions = await TryToGetCurrentConditions(SelectedCity.Key);
             Cities.Clear();
