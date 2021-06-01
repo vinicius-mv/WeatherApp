@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WeatherApp.Model;
 
@@ -18,6 +20,7 @@ namespace WeatherApp.ViewModel.Helpers
 
         public static async Task<List<City>> GetCitiesAsync(string query)
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             string url = _baseUrl + string.Format(_getLocationsEndPoint, _apiKey, query);
 
             List<City> cities;
@@ -39,7 +42,10 @@ namespace WeatherApp.ViewModel.Helpers
             {
                 HttpResponseMessage response = await client.GetAsync(url);
                 string json = await response.Content.ReadAsStringAsync();
-                currentConditions = JsonConvert.DeserializeObject<List<CurrentConditions>>(json);
+                currentConditions = JsonConvert.DeserializeObject<List<CurrentConditions>>(
+                    json,
+                    new JsonSerializerSettings() { Culture = CultureInfo.InvariantCulture }
+                );
             }
             return currentConditions.FirstOrDefault();
         }

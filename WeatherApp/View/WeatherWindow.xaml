@@ -26,11 +26,13 @@
                     Content="Search"
                     Command="{Binding SearchCommand}"
                     CommandParameter="{Binding CityQuery}"/>
-            <ListView>
+            
+            <ListView ItemsSource="{Binding Cities}"
+                      SelectedValue="{Binding SelectedCity}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock />
+                            <TextBlock Text="{Binding LocalizedName}" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

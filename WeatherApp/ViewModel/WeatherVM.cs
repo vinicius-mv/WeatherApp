@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -20,6 +21,8 @@ namespace WeatherApp.ViewModel
         public WeatherVM()
         {
             SearchCommand = new SearchCommand(this);
+            Cities = new ObservableCollection<City>();
+
             this.LoadDataInDesignerMode();
         }
 
@@ -34,6 +37,8 @@ namespace WeatherApp.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public ObservableCollection<City> Cities { get; set; }
 
         private CurrentConditions _currentConditions;
 
@@ -54,14 +59,43 @@ namespace WeatherApp.ViewModel
             get { return _selectedCity; }
             set
             {
+                if(value == null) { return; } 
+
                 _selectedCity = value;
                 OnPropertyChanged();
+                GetCurrentConditions();
+            }
+        }
+
+        private async void GetCurrentConditions()
+        {
+            CityQuery = string.Empty;
+
+            if(SelectedCity == null) { return; }
+
+            CurrentConditions = await TryToGetCurrentConditions(SelectedCity.Key);
+            Cities.Clear();
+        }
+
+        private async Task<CurrentConditions> TryToGetCurrentConditions(string key)
+        {
+            try
+            {
+                return await AccuWeatherHelper.GetCurrentConditionAsync(key);
+            }
+            catch (Exception ex)
+            {
+                _selectedCity = null;
+                throw new Exception($"{ex.GetType()}: {ex.Message}");
             }
         }
 
         public async Task MakeQuery()
         {
             var cities = await AccuWeatherHelper.GetCitiesAsync(CityQuery);
+
+            Cities.Clear();
+            cities.ForEach(c => Cities.Add(c));
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")
@@ -83,10 +117,7 @@ namespace WeatherApp.ViewModel
                     WeatherText = "Partly Cloud",
                     Temperature = new Temperature
                     {
-                        Metric = new Units
-                        {
-                            Value = 21,
-                        }
+                        Metric = new Units() { Value = "21" }
                     }
                 };
             }
